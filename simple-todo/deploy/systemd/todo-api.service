@@ -1,0 +1,15 @@
+[Unit]
+Description=Simple TODO FastAPI
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+User=todo
+Group=todo
+WorkingDirectory=/opt/simple-todo/api
+EnvironmentFile=/etc/simple-todo/api.env
+ExecStart=/opt/simple-todo/api/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
